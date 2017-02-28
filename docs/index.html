@@ -1,5 +1,23 @@
-<html>
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8" />
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+<script>
+$(function() {
+  $.getJSON("https://spreadsheets.google.com/feeds/list/1ugU9_YVPf0vemhaJGcXDPi_-VAaRyZDal0FEdn5hIas/od6/public/values?alt=json" , function(data) {
+    var
+      ulObj = $("#demo"),
+      len = data.length;
+
+    for(var i = 0; i < len; i++) {
+      ulObj.append($("<li>").attr({"id":data[i].gsx$asin}).text(data[i].gsx$title));
+    }
+  });
+});
+</script>
+</head>
 <body>
-あいうえ
+<ul id="demo"></ul>
 </body>
 </html>
