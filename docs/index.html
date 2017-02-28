@@ -1,23 +1,45 @@
 <!DOCTYPE html>
 <html lang="ja">
 <head>
-<meta charset="UTF-8" />
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>
+なんちゃらFukuokaの本棚
+</title>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+<link href="./index.css" rel="stylesheet">
+<link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
 <script>
 $(function() {
   $.getJSON("https://spreadsheets.google.com/feeds/list/1ugU9_YVPf0vemhaJGcXDPi_-VAaRyZDal0FEdn5hIas/od6/public/values?alt=json" , function(data) {
-    var
-      ulObj = $("#demo"),
-      len = data.length;
 
-    for(var i = 0; i < len; i++) {
-      ulObj.append($("<li>").attr({"id":data[i].gsx\\$asin}).text(data[i].gsx\\$title));
+    var
+      obj = $("#choice"),
+      len = data.feed.entry.length;
+    for(var i = 0; i < len; i++) {
+      var
+        asin = data.feed.entry[i].gsx$asin.$t,
+        title = data.feed.entry[i].gsx$title.$t,
+        tag = data.feed.entry[i].gsx$tag.$t,
+        imghtml = '<img class="bookImage" src="http://images-jp.amazon.com/images/P/'+asin+'.09._SCMZZZZZZZ_.jpg">',
+        ahtmlb = '<a href="https://www.amazon.co.jp/dp/'+asin+'" target="_blank" title="'+title+'" class="'+tag+'">',
+        ahtmla = '</a>';
+      obj.append(ahtmlb+imghtml+ahtmla);
     }
   });
 });
 </script>
 </head>
 <body>
-<ul id="demo"></ul>
+<h1><i class="material-icons">local_library</i> UX Fukuokaの本棚</h1>
+<div id="choice"></div>
+<footer>
+<hr>
+<a href="https://www.facebook.com/uxfukuoka/" target="_blank">
+<svg style="width:24px;height:24px" viewBox="0 0 24 24">
+    <path fill="#ddd" d="M5,3H19A2,2 0 0,1 21,5V19A2,2 0 0,1 19,21H5A2,2 0 0,1 3,19V5A2,2 0 0,1 5,3M18,5H15.5A3.5,3.5 0 0,0 12,8.5V11H10V14H12V21H15V14H18V11H15V9A1,1 0 0,1 16,8H18V5Z" />
+</svg>
+&#147;UX Fukuoka&#148; at Facebook</a>
+</footer>
 </body>
 </html>
